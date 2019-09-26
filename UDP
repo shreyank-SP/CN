@@ -1,0 +1,24 @@
+from socket import *
+ServerName = "10.124.7.86"
+Serverport= 12000
+clientsocket=socket(AF_INET,SOCK_DGRAM)
+sentence=input('Enter sentence : ')
+clientsocket.sendto(bytes(sentence,"utf-8"),(ServerName,Serverport))
+filecontents,seraddr=clientsocket.recvfrom(2048)
+print("IN uppercase :",filecontents)
+clientsocket.close()
+
+
+-----------UDP server-------------
+
+from socket import *
+serverport = 12000
+
+serverSocket = socket(AF_INET,SOCK_DGRAM)
+serverSocket.bind(("10.124.7.86",serverport))
+print("The server is ready to receive")
+while 1:
+    Sentence,cliaddr=serverSocket.recvfrom(2048)
+    l=str(Sentence.upper())
+    serverSocket.sendto(bytes(l,"utf-8"),cliaddr)
+    print("sent back to client",l)

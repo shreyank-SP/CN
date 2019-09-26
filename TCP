@@ -1,0 +1,31 @@
+clienttcp:
+from socket import*
+serverPort=12000
+serverName='DESKTOP-LQSM6B2'
+clientSocket=socket(AF_INET,SOCK_STREAM)
+clientSocket.connect((serverName,serverPort))
+sentence=input('Enter sentence:-')
+clientSocket.send(sentence.encode())
+modifiedSentence=clientSocket.recv(1024)
+print('from server',modifiedSentence.decode())
+clientSocket.close()
+
+----------------server----------
+
+
+servertcp:
+from socket import*
+serverPort=12000
+serverName='DESKTOP-LQSM6B2'
+serverSocket=socket(AF_INET,SOCK_STREAM)
+serverSocket.bind((serverName,serverPort))
+serverSocket.listen(1)
+print('the server is ready to recieve')
+while 1:
+    connectionSocket,addr=serverSocket.accept()
+
+    sentence=connectionSocket.recv(1024)
+    CapitalizedSentence=sentence.upper()
+    connectionSocket.send(CapitalizedSentence)
+    connectionSocket.close()
+   

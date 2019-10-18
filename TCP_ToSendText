@@ -1,0 +1,16 @@
+from socket import*
+serverPort=12001
+serverName='192.168.43.110'
+clientSocket=socket(AF_INET,SOCK_STREAM)
+clientSocket.connect((serverName,serverPort))
+content=[]
+print("Enter /Paste sentences ,$  to finish: \n")
+while True:
+      sentence=input()
+      if(sentence=='$'):
+           break
+      content.append(sentence)
+text="$@".join(content)   
+clientSocket.send(text.encode())
+clientSocket.close()
+---------------server side program-----------

@@ -1,3 +1,5 @@
+client side program
+
 from socket import*
 serverPort=12001
 serverName='192.168.43.110'
@@ -13,4 +15,36 @@ while True:
 text="$@".join(content)   
 clientSocket.send(text.encode())
 clientSocket.close()
+
+
 ---------------server side program-----------
+
+from socket import*
+serverPort=12001
+f1= open("file1.txt","w")
+f2=open("file1.txt","r")
+serverName='192.168.43.110'
+serverSocket=socket(AF_INET,SOCK_STREAM)
+serverSocket.bind((serverName,serverPort))
+serverSocket.listen(1)
+print('the server is ready to recieve')
+while 1:
+    connectionSocket,addr=serverSocket.accept()
+    sentence=connectionSocket.recv(16384)
+    f1.write(str(sentence))
+    f1.close()
+    lines=f2.read()
+    str1=lines.split("$@")
+    str1.pop(0)
+    len1=len(str1)
+    strlast=str1.pop(len1-1)
+    strlast2=strlast[:-1]
+    for i in str1:
+            print(i)
+    print(strlast2)
+    
+    f2.close()
+    connectionSocket.close()
+   
+
+

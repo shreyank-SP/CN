@@ -1,4 +1,4 @@
----------server-----------
+---------server(Reciever)-----------
 
 from socket import *
 import sys
@@ -25,7 +25,7 @@ while True:
     print(" Client disconnected")
     sys.exit(0)
 
-------------client sender-------------
+------------client (sender)-------------
 from socket import*
 import sys
 serverPort=12004

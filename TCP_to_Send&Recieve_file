@@ -3,7 +3,7 @@
 from socket import *
 import sys
 serverport=12004
-servername="192.168.43.62"
+servername="192.168.42.51"
 serversocket=socket(AF_INET,SOCK_STREAM)
 serversocket.bind((servername,serverport))
 serversocket.listen(1)
@@ -24,3 +24,23 @@ while True:
     conn.close()
     print(" Client disconnected")
     sys.exit(0)
+
+------------client sender-------------
+from socket import*
+import sys
+serverPort=12004
+serverName='192.168.42.51'
+clientSocket=socket(AF_INET,SOCK_STREAM)
+clientSocket.connect((serverName,serverPort))
+print("[+] Connected with Server")
+filename=input("Enter file name wirh extension to send :");
+clientSocket.send(filename.encode())
+with open(filename, "rb") as f:
+    print("[+] Sending file...")
+    data = f.read()
+    clientSocket.sendall(data)
+    clientSocket.close()
+    print("[-] Disconnected")
+    sys.exit(0)
+
+

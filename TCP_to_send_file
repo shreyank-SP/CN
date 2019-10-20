@@ -1,0 +1,26 @@
+---------server-----------
+
+from socket import *
+import sys
+serverport=12004
+servername="192.168.43.62"
+serversocket=socket(AF_INET,SOCK_STREAM)
+serversocket.bind((servername,serverport))
+serversocket.listen(1)
+print("Server is ready to recieve....!")
+
+while True:
+    conn,addr=serversocket.accept()
+    print("client connected : ",addr)
+    filename=conn.recv(1024);
+    f = open(filename, "wb")
+    while True:
+        data = conn.recv(4096)
+        if not data:
+            break
+        f.write(data)
+    f.close()
+    print(" Download complete!")
+    conn.close()
+    print(" Client disconnected")
+    sys.exit(0)

@@ -1,20 +1,18 @@
 ------------- client side program(sender)---------------
 
-from socket import*
-serverPort=12001
-serverName='192.168.43.110'
-clientSocket=socket(AF_INET,SOCK_STREAM)
-clientSocket.connect((serverName,serverPort))
-content=[]
-print("Enter /Paste sentences ,$  to finish: \n")
-while True:
-      sentence=input()
-      if(sentence=='$'):
-           break
-      content.append(sentence)
-text="$@".join(content)   
-clientSocket.send(text.encode())
-clientSocket.close()
+from socket import *
+import sys
+import pickle
+serverport=12001
+servername="192.168.52.51"
+clientsocket=socket(AF_INET,SOCK_STREAM)
+clientsocket.connect((servername,serverport))
+print("Enter /paste your sentences ,ctrl+D to end " )
+
+data=sys.stdin.readlines()
+data=pickle.dumps(data)
+clientsocket.send(data)
+
 
 
 ---------------server side program (Reciever)-----------

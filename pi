@@ -1,0 +1,30 @@
+pi
+
+
+from socket import *
+import sys
+import picamera
+serverPort=12004
+serverName="192.168.43.110"
+clientSocket=socket(AF_INET,SOCK_STREAM)
+clientSocket.connect((serverName,serverPort))
+print(" Connected with Server")
+print("About to take a picture ")
+with picamera.PiCamera() as camera:
+      camera.resolution=(800,600)
+      count=1
+      for i in range(5):
+          filename="file"+str(count)+".jpg"
+          camera.capture("/home/pi/Desktop/Face-Recognition-master/Face-Recognition-master/sentfile/"+filename)
+          clientSocket.send(filename.encode())
+          size=os.path.getsize(filename)
+          clientSocket.send(bytes(str(size),'utf8'))
+          with open(filename, "rb") as f:
+                data = f.read()
+                clientSocket.sendall(data)
+          time.sleep(1)
+          count+=1
+          time.sleep(5)
+print("pictures sent")
+clientSocket.close()
+

@@ -28,3 +28,28 @@ with picamera.PiCamera() as camera:
 print("pictures sent")
 clientSocket.close()
 
+lap
+
+from socket import *
+import sys
+serverport=12004
+servername="192.168.43.110"
+serversocket=socket(AF_INET,SOCK_STREAM)
+serversocket.bind((servername,serverport))
+serversocket.listen(1)
+print("Server is ready to recieve....!")
+conn,addr=serversocket.accept()
+print("client connected : ",addr)
+while True:
+         filename=conn.recv(1024);
+         f = open(filename, "wb")
+         dat=conn.recv(1024)
+         strings=str(data,'utf8')
+         size=int(strings)
+         data = conn.recv(size)
+         f.write(data)
+         f.close()
+print(" Download complete!")
+conn.close()
+sys.exit(0)
+
